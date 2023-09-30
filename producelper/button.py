@@ -126,11 +126,13 @@ class Octave(ABC):
     def set_scale(self, scale: Scale | None) -> None:
         """Установить лад."""
 
-    def __str__(self) -> str:
+    def get_info_keys(self, simple: bool = True) -> list[str]:
+        """Получить информацию по клавишам в октаве."""
+
         result = []
         for key in self.keys:
             if key.enabled:
-                if key.step is None:
+                if simple or key.step is None:
                     result.append('*')
                 else:
                     additional = ''
@@ -144,7 +146,10 @@ class Octave(ABC):
             else:
                 result.append('-')
 
-        return ' '.join(result)
+        return result
+
+    def __str__(self) -> str:
+        return ' '.join(self.get_info_keys(simple=False))
 
 
 class OctaveBase(Octave):
@@ -164,8 +169,6 @@ class OctaveBase(Octave):
         KeyAB(),
         KeyB()
     )
-    # max_step: int = 11
-    # min_step: int = -12
 
     def __init__(self, index: int = 0, root_note: Note | None = None, scale: Scale | None = None) -> None:
         self.index = index
