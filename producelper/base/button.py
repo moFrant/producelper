@@ -1,8 +1,8 @@
 """Клавиши контроллера."""
 from abc import ABC, abstractmethod
 
-from producelper.note import Note
-from producelper.scale import Scale
+from producelper.base.note import Note
+from producelper.base.scale import Scale
 
 
 class Key(ABC):
