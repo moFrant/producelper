@@ -1,5 +1,6 @@
 """Консольное приложение."""
 from producelper.console_app import AppBase
+from producelper.key.console_app import KeyApp
 
 
 class MainApp(AppBase):
@@ -7,6 +8,7 @@ class MainApp(AppBase):
 
     def help(self, *args) -> None:
         print("help - вывести справку, exit - выход из программы")
+        print("key - перейти в подситему работы с тональностями.")
 
     def starting_message(self) -> None:
         print("Программа-помощник создания музыки.")
@@ -16,6 +18,9 @@ def main():
     """Основной поток приложения."""
 
     main_app = MainApp()
+    key_app = KeyApp()
+
+    main_app.register_app('key', key_app)
     main_app.run()
 
 

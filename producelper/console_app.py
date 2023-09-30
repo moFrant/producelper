@@ -5,6 +5,8 @@ from abc import ABC, abstractmethod
 class App(ABC):
     """Консольное приложение."""
 
+    full_command: str | None
+
     @abstractmethod
     def help(self, *args) -> None:
         """Вывести справку."""
@@ -44,10 +46,15 @@ class AppBase(App, ABC):
         self.apps[command] = app
 
     def run(self) -> None:
+        print()
         self.starting_message()
         while not self._exit:
             self.full_command = command = input("Введите команду: ")
-            self.execute_command(command)
+
+            try:
+                self.execute_command(command)
+            except Exception as exc:
+                print(f"Произошла ошибка {exc}")
 
         self._exit = False
 
@@ -66,18 +73,29 @@ class AppBase(App, ABC):
     def execute_command(self, command: str) -> None:
         parsed_command = self.parse_command(command)
         if not parsed_command:
+            self.full_command = None
             return
 
         key_command = parsed_command.pop(0)
         app = self.apps.get(key_command)
         if app:
             if parsed_command:
+                app.full_command = self.full_command
+                self.full_command = None
                 return app.execute_command(self.get_command(parsed_command))
             else:
-                return app.run()
+                self.full_command = None
+                try:
+                    return app.run()
+                finally:
+                    self.starting_message()
 
         method = getattr(self, key_command)
         if method:
-            return method(*parsed_command)
+            try:
+                return method(*parsed_command)
+            finally:
+                self.full_command = None
 
+        self.full_command = None
         raise  # Не удалось определить команду
