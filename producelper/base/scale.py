@@ -44,6 +44,9 @@ class MajorScale(Scale):
         7: TONE
     }
 
+    def __str__(self) -> str:
+        return 'major'
+
 
 class MinorScale(Scale):
     """Минорный лад."""
@@ -57,3 +60,6 @@ class MinorScale(Scale):
         6: SEMITONE,
         7: TONE
     }
+
+    def __str__(self) -> str:
+        return 'minor'
