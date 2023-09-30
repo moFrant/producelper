@@ -55,6 +55,7 @@ class AppBase(App, ABC):
                 self.execute_command(command)
             except Exception as exc:
                 print(f"Произошла ошибка {exc}")
+                print()
 
         self._exit = False
 
@@ -88,6 +89,7 @@ class AppBase(App, ABC):
                 try:
                     return app.run()
                 finally:
+                    print()
                     self.starting_message()
 
         method = getattr(self, key_command)

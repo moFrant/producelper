@@ -7,8 +7,10 @@ class MainApp(AppBase):
     """Главное приложение."""
 
     def help(self, *args) -> None:
+        print()
         print("help - вывести справку, exit - выход из программы")
         print("key - перейти в подситему работы с тональностями.")
+        print()
 
     def starting_message(self) -> None:
         print("Программа-помощник создания музыки.")
