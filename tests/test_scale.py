@@ -1,7 +1,7 @@
 """Тестирование ладов."""
-from button import OctaveBase
-from note import NoteC, NoteAFlat
-from scale import MajorScale, MinorScale
+from producelper.button import OctaveBase
+from producelper.note import NoteC, NoteAFlat
+from producelper.scale import MajorScale, MinorScale
 
 
 def test_major():
