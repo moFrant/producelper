@@ -195,7 +195,7 @@ class NoteBSharp(Note):
         return 'B#'
 
 
-class NoteCFLat(Note):
+class NoteCFlat(Note):
     """Нота ДО Бемоль."""
 
     index_key = 11
